@@ -12,14 +12,17 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".CTActivity"
-            android:label="@string/title_activity_ct" >
+            android:name=".RouteListActivity"
+            android:label="@string/title_activity_routelist" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        
+        <activity
+            android:name=".MapDisplayActivity"
+            android:label="@string/title_activity_mapdisplay" />
     </application>
 
 </manifest>

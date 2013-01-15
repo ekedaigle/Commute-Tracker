@@ -5,17 +5,21 @@ import java.util.zip.Inflater;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Intent;
 import android.database.DataSetObserver;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class CTActivity extends Activity {
+public class RouteListActivity extends Activity implements OnItemClickListener {
+	public static Route activeRoute = null;
 	
 	private ListView listView;
 	private ArrayList<Route> routes;
@@ -26,10 +30,13 @@ public class CTActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ct);
         
+        routes = new ArrayList<Route>();
+        routes.add(new Route("TestRoute1", new Route.RoutePoint(0, 0, "Start"), new Route.RoutePoint(0, 1, "End")));
+        
         listView = (ListView)findViewById(R.id.listView1);
         listView.setAdapter(new RouteListAdapter());
+        listView.setOnItemClickListener(this);
         
-        routes = new ArrayList<Route>();
         inflater = (LayoutInflater)getSystemService(LAYOUT_INFLATER_SERVICE);
     }
     
@@ -60,4 +67,11 @@ public class CTActivity extends Activity {
 			return position;
 		}
     }
+
+	public void onItemClick(AdapterView<?> parent, View view, int position, long id ) {
+		Route route = routes.get(position);
+		Intent intent = new Intent(view.getContext(), MapDisplayActivity.class);
+		activeRoute = route;
+		startActivity(intent);
+	}
 }
